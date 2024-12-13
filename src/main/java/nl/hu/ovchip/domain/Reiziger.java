@@ -1,7 +1,6 @@
 package nl.hu.ovchip.domain;
 import java.sql.Date;
-import jakarta.persistence.Entity;
-@Entity
+
 public class Reiziger  {
     private int reiziger_id;
     private String voorletters;
