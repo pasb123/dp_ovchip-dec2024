@@ -28,7 +28,7 @@ public class AdresDAOPsql implements AdresDAO {
         statement.setString(3, adres.getHuisnummer());
         statement.setString(4, adres.getStraat());
         statement.setString(5,adres.getWoonplaats());
-        statement.setInt(6,adres.getReiziger_id());
+        statement.setInt(6,adres.getReiziger().getId());
         statement.execute();
         statement.close();
         return true;
@@ -43,7 +43,7 @@ public class AdresDAOPsql implements AdresDAO {
         statement.setString(2, nieuwAdres.getHuisnummer());
         statement.setString(3, nieuwAdres.getPostcode());
         statement.setString(4, nieuwAdres.getWoonplaats());
-        statement.setInt(5, nieuwAdres.getReiziger_id());
+        statement.setInt(5, nieuwAdres.getReiziger().getId());
         statement.setInt(6, oudAdres.getAdres_id());
         statement.executeUpdate();
         statement.close();

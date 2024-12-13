@@ -11,7 +11,10 @@
 
         <property name="hibernate.show_sql">false</property>
         <property name="hibernate.format_sql">false</property>
+        <property name="hibernate.transaction.jta.platform">null</property>
+
 
         <mapping class="nl.hu.ovchip.domain.Reiziger"/>
+        <mapping class="nl.hu.ovchip.domain.Adres"/>
     </session-factory>
 </hibernate-configuration>

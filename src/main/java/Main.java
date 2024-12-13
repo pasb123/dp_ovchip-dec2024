@@ -1,6 +1,7 @@
 import nl.hu.ovchip.data.DAO.AdresDAO;
 import nl.hu.ovchip.data.connection.HibernateConnect;
 import nl.hu.ovchip.data.connection.PostgresConnect;
+import nl.hu.ovchip.data.implementation.adres.AdresDAOHibernate;
 import nl.hu.ovchip.data.implementation.adres.AdresDAOPsql;
 import nl.hu.ovchip.data.implementation.reiziger.ReizigerDAOHibernate;
 import nl.hu.ovchip.data.implementation.reiziger.ReizigerDOAPsql;
@@ -110,7 +111,7 @@ public class Main {
 
         // delete
         System.out.print("[Test] Eerst " + adressen.size() + " adressen, na nl.hu.ovchip.data.DAO.AdresDAO.delete() ");
-        adao.delete(nieuwAdres);
+        adao.delete(adres3);
         rdao.delete(sietske);
         adressen = adao.findAll();
         System.out.println(adressen.size() + " adressen\n");
@@ -121,10 +122,15 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
        PostgresConnect.testConnection();
+//
+//
+
         ReizigerDOAPsql reizigerDOAPsql=new ReizigerDOAPsql(connection);
-        ReizigerDAOHibernate reizigerDAOHibernate= new ReizigerDAOHibernate(HibernateConnect.getSession());
-//        testReizigerDAO(reizigerDOAPsql);
-//        testReizigerDAO(reizigerDAOHibernate);
+       ReizigerDAOHibernate reizigerDAOHibernate= new ReizigerDAOHibernate(HibernateConnect.getSession());
+       testReizigerDAO(reizigerDOAPsql);
+        testReizigerDAO(reizigerDAOHibernate);
+
+        testAdresDAO(new AdresDAOHibernate(HibernateConnect.getSession()),reizigerDAOHibernate);
         testAdresDAO(new AdresDAOPsql(connection),new ReizigerDOAPsql(connection));
     }
 }

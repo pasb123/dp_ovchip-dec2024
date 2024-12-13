@@ -30,7 +30,7 @@ public class ReizigerDAOHibernate implements ReizigerDAO {
     @Override
     public boolean update(Reiziger oudeReiziger, Reiziger nieuweReiziger) {
 try {
- ;
+
   if (session.get(Reiziger.class,oudeReiziger.getId())!=null){
       session.beginTransaction();
       session.merge(nieuweReiziger);

@@ -1,12 +1,24 @@
 package nl.hu.ovchip.domain;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name= "adres")
 public class Adres {
+    @Id
+    @Column(name = "adres_id")
     private int adres_id;
+    @Column(name = "postcode")
     private String postcode;
+    @Column(name = "huisnummer")
     private String huisnummer;
+    @Column(name="straat")
     private String straat;
+    @Column(name = "woonplaats")
     private String woonplaats;
-    private int reiziger_id;
+    @OneToOne
+    @JoinColumn(name = "reiziger_id", nullable = false)
+    private Reiziger reiziger;
 
     public Adres(int adres_id, String postcode, String huisnummer, String straat, String woonplaats,Reiziger reiziger) {
         this.adres_id = adres_id;
@@ -23,7 +35,11 @@ public class Adres {
         }
         this.straat = straat;
         this.woonplaats = woonplaats;
-        this.reiziger_id=reiziger.getId();
+        this.reiziger=reiziger;
+    }
+
+    protected Adres() {
+
     }
 
     public int getAdres_id() {
@@ -46,8 +62,9 @@ public class Adres {
         return woonplaats;
     }
 
-    public int getReiziger_id() {
-        return reiziger_id;
+
+    public Reiziger getReiziger() {
+        return reiziger;
     }
 
     @Override
@@ -58,7 +75,7 @@ public class Adres {
                 ", huisnummer='" + huisnummer + '\'' +
                 ", straat='" + straat + '\'' +
                 ", woonplaats='" + woonplaats + '\'' +
-                ", reiziger_id=" + reiziger_id +
+                ", reiziger_id=" + reiziger.getId() +
                 '}';
     }
 }
