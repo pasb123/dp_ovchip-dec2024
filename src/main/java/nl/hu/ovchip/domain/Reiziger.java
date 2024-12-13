@@ -2,6 +2,8 @@ package nl.hu.ovchip.domain;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.List;
+
 @Entity
 @Table(name = "reiziger")
 public class Reiziger  {
@@ -18,6 +20,8 @@ public class Reiziger  {
     private Date geboortedatum;
     @OneToOne(mappedBy = "reiziger", cascade = CascadeType.ALL, orphanRemoval = true)
     private Adres adres;
+    @Transient
+    private List<OVChipkaart> ovChipkaart;
     protected Reiziger(){}
 
     public Reiziger(int reiziger_id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum) {
