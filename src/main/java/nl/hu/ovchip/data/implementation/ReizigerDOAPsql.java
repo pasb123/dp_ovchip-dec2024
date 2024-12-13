@@ -1,6 +1,6 @@
-package nl.hu.ovchip.application;
+package nl.hu.ovchip.data.implementation;
 
-import nl.hu.ovchip.data.ReizigerDAO;
+import nl.hu.ovchip.data.DAO.ReizigerDAO;
 import nl.hu.ovchip.domain.Reiziger;
 
 import java.sql.*;

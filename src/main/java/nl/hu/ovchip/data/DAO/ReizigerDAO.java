@@ -1,4 +1,4 @@
-package nl.hu.ovchip.data;
+package nl.hu.ovchip.data.DAO;
 
 import nl.hu.ovchip.domain.Reiziger;
 

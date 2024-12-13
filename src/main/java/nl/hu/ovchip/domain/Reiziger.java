@@ -1,13 +1,26 @@
 package nl.hu.ovchip.domain;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.sql.Date;
-
+@Entity
+@Table(name = "reiziger")
 public class Reiziger  {
+    @Id
+    @Column(name = "reiziger_id")
     private int reiziger_id;
+    @Column(name = "voorletters")
     private String voorletters;
+    @Column(name= "tussenvoegsel")
     private String tussenvoegsel;
+    @Column(name = "achternaam")
     private String achternaam;
+    @Column(name = "geboortedatum")
     private Date geboortedatum;
-
+    
+    protected Reiziger(){}
 
     public Reiziger(int reiziger_id, String voorletters, String tussenvoegsel, String achternaam, Date geboortedatum) {
         this.reiziger_id=reiziger_id;
