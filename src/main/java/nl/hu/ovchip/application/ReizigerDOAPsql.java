@@ -1,3 +1,5 @@
+package nl.hu.ovchip.application;
+
 import nl.hu.ovchip.data.ReizigerDAO;
 import nl.hu.ovchip.domain.Reiziger;
 
