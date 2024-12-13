@@ -1,13 +1,26 @@
 package nl.hu.ovchip.domain;
 
-import java.sql.Date;
+import jakarta.persistence.*;
 
+import java.sql.Date;
+@Entity
+@Table(name = "ov_chipkaart")
 public class OVChipkaart {
+    @Id
+    @Column(name = "kaart_nummer", length = 10)
     private int kaartNummer;
+    @Column(name = "geldig_tot")
     private Date geldigTot;
+    @Column(name = "klasse", length = 10)
     private int klasse;
+    @Column(name = "saldo",length = 18, precision = 2)
     private double saldo;
+    @ManyToOne
+    @JoinColumn(name = "reiziger_id",nullable = false)
     private Reiziger reiziger;
+
+    protected OVChipkaart() {
+    }
 
     public OVChipkaart(int kaartNummer, Date geldigTot, int klasse, double saldo, Reiziger reiziger) {
         this.kaartNummer = kaartNummer;

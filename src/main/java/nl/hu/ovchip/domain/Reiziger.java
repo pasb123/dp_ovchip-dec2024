@@ -20,7 +20,7 @@ public class Reiziger  {
     private Date geboortedatum;
     @OneToOne(mappedBy = "reiziger", cascade = CascadeType.ALL, orphanRemoval = true)
     private Adres adres;
-    @Transient
+    @OneToMany(mappedBy = "reiziger",cascade = CascadeType.ALL)
     private List<OVChipkaart> ovChipkaart;
     protected Reiziger(){}
 

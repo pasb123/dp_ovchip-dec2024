@@ -16,5 +16,6 @@
 
         <mapping class="nl.hu.ovchip.domain.Reiziger"/>
         <mapping class="nl.hu.ovchip.domain.Adres"/>
+        <mapping class="nl.hu.ovchip.domain.OVChipkaart"/>
     </session-factory>
 </hibernate-configuration>

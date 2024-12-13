@@ -4,6 +4,7 @@ import nl.hu.ovchip.data.connection.HibernateConnect;
 import nl.hu.ovchip.data.connection.PostgresConnect;
 import nl.hu.ovchip.data.implementation.adres.AdresDAOHibernate;
 import nl.hu.ovchip.data.implementation.adres.AdresDAOPsql;
+import nl.hu.ovchip.data.implementation.ovchipkaart.OVChipkaartDAOHibernate;
 import nl.hu.ovchip.data.implementation.ovchipkaart.OVChipkaartDAOPsql;
 import nl.hu.ovchip.data.implementation.reiziger.ReizigerDAOHibernate;
 import nl.hu.ovchip.data.implementation.reiziger.ReizigerDOAPsql;
@@ -172,7 +173,7 @@ public class Main {
 
         // delete
         System.out.print("[Test] Eerst " + ovChipkaarten.size() + " OVChipkaarten, na nl.hu.ovchip.data.DAO.OVChipkaartDAO.delete() ");
-        odao.delete(updateKaart);
+        odao.delete(kaartenVanSietske.get(0));
         rdao.delete(sietske);
         ovChipkaarten = odao.findAll();
         System.out.println(ovChipkaarten.size() + " OVChipkaarten\n");
@@ -185,14 +186,15 @@ public class Main {
        PostgresConnect.testConnection();
 //
 //
-//
-//        ReizigerDOAPsql reizigerDOAPsql=new ReizigerDOAPsql(connection);
-//       ReizigerDAOHibernate reizigerDAOHibernate= new ReizigerDAOHibernate(HibernateConnect.getSession());
-//       testReizigerDAO(reizigerDOAPsql);
-//        testReizigerDAO(reizigerDAOHibernate);
-//
-//        testAdresDAO(new AdresDAOHibernate(HibernateConnect.getSession()),reizigerDAOHibernate);
-//        testAdresDAO(new AdresDAOPsql(connection),new ReizigerDOAPsql(connection));
+
+        ReizigerDOAPsql reizigerDOAPsql=new ReizigerDOAPsql(connection);
+       ReizigerDAOHibernate reizigerDAOHibernate= new ReizigerDAOHibernate(HibernateConnect.getSession());
+       testReizigerDAO(reizigerDOAPsql);
+        testReizigerDAO(reizigerDAOHibernate);
+
+        testAdresDAO(new AdresDAOHibernate(HibernateConnect.getSession()),reizigerDAOHibernate);
+        testAdresDAO(new AdresDAOPsql(connection),new ReizigerDOAPsql(connection));
         testOVChipkaartDAO(new OVChipkaartDAOPsql(connection),new ReizigerDOAPsql(connection));
+        testOVChipkaartDAO(new OVChipkaartDAOHibernate(HibernateConnect.getSession()),reizigerDAOHibernate);
     }
 }
