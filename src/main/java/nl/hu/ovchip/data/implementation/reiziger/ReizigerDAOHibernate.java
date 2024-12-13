@@ -1,9 +1,10 @@
-package nl.hu.ovchip.data.implementation;
+package nl.hu.ovchip.data.implementation.reiziger;
 
 import nl.hu.ovchip.data.DAO.ReizigerDAO;
 import nl.hu.ovchip.domain.Reiziger;
 import org.hibernate.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ReizigerDAOHibernate implements ReizigerDAO {
@@ -57,5 +58,10 @@ catch (HibernateException e){
     @Override
     public List<Reiziger> findAll() {
         return session.createQuery("select reiziger from Reiziger reiziger", Reiziger.class).list();
+    }
+
+    @Override
+    public Reiziger findById(int id) throws SQLException {
+        return session.byId(Reiziger.class).getReference(id);
     }
 }

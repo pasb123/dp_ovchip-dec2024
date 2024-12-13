@@ -9,9 +9,9 @@ public class PostgresConnect {
     public PostgresConnect() {
     }
 
-    public static Connection connection;
+    private static Connection connection;
     // conection method
-    private static Connection getConnection() {
+    public static Connection getConnection() {
         String linkJB = "jdbc:postgresql://localhost:5432/ovchip2";
         String username = "postgres";
         String password = "sand66";

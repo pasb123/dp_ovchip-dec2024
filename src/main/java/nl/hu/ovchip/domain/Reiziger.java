@@ -72,7 +72,7 @@ public class Reiziger  {
 
     @Override
     public String toString() {
-        return "nl.hu.ovchip.domain.Reiziger met reiziger_id=" + getId() +
+        return "Reiziger met reiziger_id=" + getId() +
                 ", voorletters='" + getVoorletters() + '\'' +
                 ", tussenvoegsel='" + getTussenvoegsel() + '\'' +
                 ", achternaam='" + getAchternaam() + '\'' +

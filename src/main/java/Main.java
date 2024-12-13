@@ -1,12 +1,12 @@
+import nl.hu.ovchip.data.DAO.AdresDAO;
 import nl.hu.ovchip.data.connection.HibernateConnect;
 import nl.hu.ovchip.data.connection.PostgresConnect;
-import nl.hu.ovchip.data.implementation.ReizigerDAOHibernate;
-import nl.hu.ovchip.data.implementation.ReizigerDOAPsql;
+import nl.hu.ovchip.data.implementation.adres.AdresDAOPsql;
+import nl.hu.ovchip.data.implementation.reiziger.ReizigerDAOHibernate;
+import nl.hu.ovchip.data.implementation.reiziger.ReizigerDOAPsql;
 import nl.hu.ovchip.data.DAO.ReizigerDAO;
+import nl.hu.ovchip.domain.Adres;
 import nl.hu.ovchip.domain.Reiziger;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
 
 import java.sql.*;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Main {
 //connection link dummy
-    private static Connection connection= PostgresConnect.connection;
+    private static Connection connection= PostgresConnect.getConnection();
 
 
 
@@ -28,6 +28,9 @@ public class Main {
     private static void testReizigerDAO(ReizigerDAO rdao) throws SQLException {
         System.out.println("\n---------- Test nl.hu.ovchip.data.DAO.ReizigerDAO -------------");
         System.out.println("test "+ rdao.getClass());
+        //Haal 1 reiziger uit de DB
+        Reiziger reiziger=rdao.findById(1);
+        System.out.println("[Test] ReizigersDAO.findById geeft "+ reiziger );
         // Haal alle reizigers op uit de database
         List<Reiziger> reizigers = rdao.findAll();
         System.out.println("[Test] nl.hu.ovchip.data.DAO.ReizigerDAO.findAll() geeft de volgende reizigers:");
@@ -62,11 +65,67 @@ public class Main {
             System.out.println(r);
         }
     }
+    private static void testAdresDAO(AdresDAO adao,ReizigerDAO rdao) throws SQLException {
+        System.out.println("\n---------- Test nl.hu.ovchip.data.DAO.AdresDAO -------------");
+        System.out.println("test " + adao.getClass());
+
+        // Haal alle adressen op uit de database
+        List<Adres> adressen = adao.findAll();
+        System.out.println("[Test] nl.hu.ovchip.data.DAO.AdresDAO.findAll() geeft de volgende adressen:");
+        for (Adres a : adressen) {
+            System.out.println(a);
+        }
+        System.out.println();
+
+        // Maak een nieuw adres aan en persisteer dit in de database
+        String gbdatum = "1981-03-14";
+        List<Reiziger> reizigers = rdao.findAll();
+        Reiziger sietske = new Reiziger(77, "S", "", "Boers", Date.valueOf(gbdatum));
+        System.out.print("[Test] Eerst " + reizigers.size() + " reizigers, na nl.hu.ovchip.data.DAO.ReizigerDAO.save() ");
+        rdao.save(sietske);
+        reizigers = rdao.findAll();
+        System.out.println(reizigers.size() + " reizigers\n");
+        Adres nieuwAdres = new Adres(77, "1234AB", "123", "Langelaan", "Nieuwe Stad", rdao.findById(77));
+        System.out.print("[Test] Eerst " + adressen.size() + " adressen, na nl.hu.ovchip.data.DAO.AdresDAO.save() ");
+        adao.save(nieuwAdres);
+        adressen = adao.findAll();
+        System.out.println(adressen.size() + " adressen\n");
+        for (Adres a : adressen) {
+            System.out.println(a);
+        }
+        System.out.println();
+
+        // update
+        Adres updateAdres = new Adres(77, "6789WE", "456", "Gewijzigde Straat", "Gewijzigde Stad", rdao.findById(77));
+        System.out.print("[Test] Eerst " + adressen.size() + " adressen, na nl.hu.ovchip.data.DAO.AdresDAO.update() ");
+        adao.update(nieuwAdres, updateAdres);
+        adressen = adao.findAll();
+        System.out.println(adressen.size() + " adressen\n");
+        for (Adres a : adressen) {
+            System.out.println(a);
+        }
+        //find by reiziger
+        System.out.print("[Test] Eerst " + adressen.size() + " adressen, na nl.hu.ovchip.data.DAO.AdresDAO.findByReiziger() ");
+        Adres adres3= adao.findByReiziger(sietske);
+        System.out.println("het adres van " + sietske+" is "+ adres3);
+
+        // delete
+        System.out.print("[Test] Eerst " + adressen.size() + " adressen, na nl.hu.ovchip.data.DAO.AdresDAO.delete() ");
+        adao.delete(nieuwAdres);
+        rdao.delete(sietske);
+        adressen = adao.findAll();
+        System.out.println(adressen.size() + " adressen\n");
+        for (Adres a : adressen) {
+            System.out.println(a);
+        }
+    }
+
     public static void main(String[] args) throws SQLException {
        PostgresConnect.testConnection();
         ReizigerDOAPsql reizigerDOAPsql=new ReizigerDOAPsql(connection);
         ReizigerDAOHibernate reizigerDAOHibernate= new ReizigerDAOHibernate(HibernateConnect.getSession());
-        testReizigerDAO(reizigerDOAPsql);
-        testReizigerDAO(reizigerDAOHibernate);
+//        testReizigerDAO(reizigerDOAPsql);
+//        testReizigerDAO(reizigerDAOHibernate);
+        testAdresDAO(new AdresDAOPsql(connection),new ReizigerDOAPsql(connection));
     }
 }

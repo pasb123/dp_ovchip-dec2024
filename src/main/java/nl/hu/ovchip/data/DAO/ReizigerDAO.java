@@ -10,4 +10,5 @@ public interface ReizigerDAO {
     boolean update (Reiziger oudeReiziger, Reiziger nieuweReiziger) throws SQLException;
     boolean delete (Reiziger reiziger) throws SQLException;
     List<Reiziger> findAll() throws SQLException;
+    Reiziger findById(int id) throws SQLException;
 }
