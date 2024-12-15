@@ -55,7 +55,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
 
         if (!rs.next()) {
             Product product= productDAOPsql.findById(productNummer);
-            nieuwOvChipkaart.addProduct(product);
+            nieuwOvChipkaart.addProduct(product.getProductNummer());
             PreparedStatement statement3 = conn.prepareStatement(""
                     +" insert into ov_chipkaart_product (kaart_nummer,product_nummer, last_update,status) " +
                     "values (?,?,?,?)");
@@ -120,7 +120,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             statement2.setInt(1,ovChipkaart.getKaartNummer());
             ResultSet resultSet1= statement2.executeQuery();
             while (resultSet1.next()){
-                ovChipkaart.addProduct(productDAOPsql.findById(resultSet1.getInt("product_nummer")));
+                ovChipkaart.addProduct(resultSet1.getInt("product_nummer"));
             }
             ovChipkaartList.add(ovChipkaart);
         }
@@ -147,7 +147,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
             statement2.setInt(1,ovChipkaart.getKaartNummer());
             ResultSet resultSet1= statement2.executeQuery();
             while (resultSet1.next()){
-                ovChipkaart.addProduct(productDAOPsql.findById(resultSet1.getInt("product_nummer")));
+                ovChipkaart.addProduct(resultSet1.getInt("product_nummer"));
             }
             ovChipkaartList.add(ovChipkaart);
         }

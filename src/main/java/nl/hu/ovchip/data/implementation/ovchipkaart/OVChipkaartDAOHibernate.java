@@ -37,6 +37,7 @@ public class OVChipkaartDAOHibernate implements OVChipkaartDAO {
         try {
 
             if (session.get(OVChipkaart.class,oudOvchipkaart.getKaartNummer())!=null){
+                nieuwOvChipkaart.addProduct(productNummer);
                 session.beginTransaction();
                 session.merge(nieuwOvChipkaart);
                 session.getTransaction().commit();

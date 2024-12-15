@@ -21,8 +21,14 @@ public class OVChipkaart {
     @ManyToOne
     @JoinColumn(name = "reiziger_id",nullable = false)
     private Reiziger reiziger;
-    @Transient
-    private List<Product> producten= new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(
+            name = "ov_chipkaart_product",
+            joinColumns = @JoinColumn(name = "kaart_nummer")
+    )
+    @Column(name = "product_nummer")
+    private List<Integer> producten= new ArrayList<>();
 
     protected OVChipkaart() {
     }
@@ -54,14 +60,14 @@ public class OVChipkaart {
     public Reiziger getReiziger() {
         return reiziger;
     }
-    public void addProduct(Product product){
+    public void addProduct(Integer product){
         this.producten.add(product);
     }
-    public void removeProduct(Product product){
+    public void removeProduct(Integer product){
         this.producten.remove(product);
     }
 
-    public List<Product> getProducten() {
+    public List<Integer> getProducten() {
         return producten;
     }
 

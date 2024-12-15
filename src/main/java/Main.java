@@ -7,6 +7,7 @@ import nl.hu.ovchip.data.implementation.adres.AdresDAOHibernate;
 import nl.hu.ovchip.data.implementation.adres.AdresDAOPsql;
 import nl.hu.ovchip.data.implementation.ovchipkaart.OVChipkaartDAOHibernate;
 import nl.hu.ovchip.data.implementation.ovchipkaart.OVChipkaartDAOPsql;
+import nl.hu.ovchip.data.implementation.product.ProductDAOHibernate;
 import nl.hu.ovchip.data.implementation.product.ProductDAOPsql;
 import nl.hu.ovchip.data.implementation.reiziger.ReizigerDAOHibernate;
 import nl.hu.ovchip.data.implementation.reiziger.ReizigerDOAPsql;
@@ -255,15 +256,16 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 //       PostgresConnect.testConnection();
         ReizigerDOAPsql reizigerDOAPsql=new ReizigerDOAPsql(connection);
-//       ReizigerDAOHibernate reizigerDAOHibernate= new ReizigerDAOHibernate(HibernateConnect.getSession());
+       ReizigerDAOHibernate reizigerDAOHibernate= new ReizigerDAOHibernate(HibernateConnect.getSession());
 //       testReizigerDAO(reizigerDOAPsql);
 ////        testReizigerDAO(reizigerDAOHibernate);
 //
 ////        testAdresDAO(new AdresDAOHibernate(HibernateConnect.getSession()),reizigerDAOHibernate);
 //        testAdresDAO(new AdresDAOPsql(connection),new ReizigerDOAPsql(connection));
 //        testOVChipkaartDAO(new OVChipkaartDAOPsql(connection),new ReizigerDOAPsql(connection),new ProductDAOPsql(connection));
-////        testOVChipkaartDAO(new OVChipkaartDAOHibernate(HibernateConnect.getSession()),reizigerDAOHibernate);
-        testProductDAO(new ProductDAOPsql(connection),new OVChipkaartDAOPsql(connection),reizigerDOAPsql);
+//        testOVChipkaartDAO(new OVChipkaartDAOHibernate(HibernateConnect.getSession()),reizigerDAOHibernate,new ProductDAOHibernate(HibernateConnect.getSession()));
+//        testProductDAO(new ProductDAOPsql(connection),new OVChipkaartDAOPsql(connection),reizigerDOAPsql);
+        testProductDAO(new ProductDAOHibernate(HibernateConnect.getSession()),new OVChipkaartDAOHibernate(HibernateConnect.getSession()),reizigerDAOHibernate);
 
     }
 }

@@ -1,13 +1,27 @@
 package nl.hu.ovchip.domain;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
+@Table(name = "product")
 public class Product {
+    @Id
+    @Column(name = "product_nummer")
     private int productNummer;
+    @Column(name = "naam")
     private String naam;
+    @Column(name = "beschrijving")
     private String beschrijving;
+    @Column(name = "prijs")
     private double prijs;
+    @ElementCollection
+    @CollectionTable(
+            name = "ov_chipkaart_product",
+            joinColumns = @JoinColumn(name = "product_nummer")
+    )
+    @Column(name = "kaart_nummer")
     private List<Integer> ovChipkaartNummers= new ArrayList<>();
 
     public Product(int productNummer, String naam, String beschrijving, double prijs) {
@@ -28,6 +42,11 @@ public class Product {
         }
 
     }
+
+    protected Product() {
+
+    }
+
     public int getProductNummer() {
         return productNummer;
     }
