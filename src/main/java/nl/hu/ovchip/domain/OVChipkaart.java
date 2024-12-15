@@ -3,6 +3,9 @@ package nl.hu.ovchip.domain;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "ov_chipkaart")
 public class OVChipkaart {
@@ -18,6 +21,8 @@ public class OVChipkaart {
     @ManyToOne
     @JoinColumn(name = "reiziger_id",nullable = false)
     private Reiziger reiziger;
+    @Transient
+    private List<Product> producten= new ArrayList<>();
 
     protected OVChipkaart() {
     }
@@ -49,6 +54,16 @@ public class OVChipkaart {
     public Reiziger getReiziger() {
         return reiziger;
     }
+    public void addProduct(Product product){
+        this.producten.add(product);
+    }
+    public void removeProduct(Product product){
+        this.producten.remove(product);
+    }
+
+    public List<Product> getProducten() {
+        return producten;
+    }
 
     @Override
     public String toString() {
@@ -58,6 +73,6 @@ public class OVChipkaart {
                 ", klasse=" + klasse +
                 ", saldo=" + saldo +
                 ", reiziger=" + reiziger +
-                '}';
+                ", producten=" + producten;
     }
 }

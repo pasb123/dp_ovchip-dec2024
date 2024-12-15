@@ -31,8 +31,9 @@ public class OVChipkaartDAOHibernate implements OVChipkaartDAO {
         return true;
     }
 
+
     @Override
-    public boolean update(OVChipkaart oudOvchipkaart, OVChipkaart nieuwOvChipkaart) throws SQLException {
+    public boolean update(OVChipkaart oudOvchipkaart, OVChipkaart nieuwOvChipkaart, int productNummer, String status) throws SQLException {
         try {
 
             if (session.get(OVChipkaart.class,oudOvchipkaart.getKaartNummer())!=null){
@@ -48,7 +49,7 @@ public class OVChipkaartDAOHibernate implements OVChipkaartDAO {
     }
 
     @Override
-    public boolean delete(OVChipkaart ovChipkaart) throws SQLException {
+    public boolean delete(OVChipkaart ovChipkaart, int productnummer) throws SQLException {
         try{
             session.beginTransaction();
             session.remove(ovChipkaart);
